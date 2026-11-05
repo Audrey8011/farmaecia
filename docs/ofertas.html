@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ofertas - Farma&Cia</title>
+    <link rel="icon" type="image/png" href="images/logo-farma.png" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho" id="cabecalho"></header>
+
+    <main id="conteudo" class="conteudo">
+
+        <section class="hero">
+            <div class="hero-texto">
+                <span class="hero-etiqueta">Economize mais</span>
+                <h1>Ofertas da semana</h1>
+                <p>Aproveite os produtos selecionados com preços especiais e desconto na lata.</p>
+                <div class="hero-acoes">
+                    <a class="botao" href="index.html">Voltar à loja</a>
+                </div>
+            </div>
+            <div class="hero-imagem">
+                <img src="images/logo-farma.png" alt="Ilustração de uma farmácia colorida" />
+            </div>
+        </section>
+
+        <section class="secao" id="produtos">
+            <div class="secao-cabecalho">
+                <div>
+                    <h2>Produtos em promoção</h2>
+                    <p>Estes produtos estão com preço especial nesta semana.</p>
+                </div>
+            </div>
+
+            <div class="grade-produtos" id="grade-produtos"></div>
+
+            <div class="estado-vazio" id="estado-vazio" style="display:none">
+                <span class="icone" aria-hidden="true">🏷️</span>
+                <h2>Nada em oferta agora</h2>
+                <p>Volte em breve para conferir novas ofertas!</p>
+                <a class="botao" href="index.html">Ver todos os produtos</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="rodape" id="rodape"></footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        farmaApp.iniciarOfertas();
+        if (!document.querySelector("#grade-produtos .produto-card")) {
+            document.getElementById("estado-vazio").style.display = "";
+        }
+    </script>
+
+</body>
+</html>

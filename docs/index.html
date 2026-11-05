@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Farma&Cia — sua farmácia de confiança. Medicamentos, higiene, beleza e bem-estar com entrega rápida." />
+    <title>Loja - Farma&Cia</title>
+    <link rel="icon" type="image/png" href="images/logo-farma.png" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho" id="cabecalho"></header>
+
+    <main id="conteudo" class="conteudo">
+
+        <section class="hero">
+            <div class="hero-texto">
+                <span class="hero-etiqueta">Um carinho a mais para você</span>
+                <h1>Bem-vindo à Farma &amp; Cia!</h1>
+                <p>
+                    Encontre medicamentos, produtos de higiene, beleza e bem-estar
+                    com entrega rápida e o atendimento de confiança que você merece.
+                </p>
+                <div class="hero-acoes">
+                    <a class="botao" href="ofertas.html">Descubra as ofertas</a>
+                    <a class="botao botao-secundario" href="#produtos">Ver produtos</a>
+                </div>
+                <ul class="hero-vantagens">
+                    <li>Produtos de qualidade</li>
+                    <li>Compra simples e segura</li>
+                    <li>Atendimento próximo</li>
+                </ul>
+            </div>
+            <div class="hero-imagem">
+                <img src="images/logo-farma.png" alt="Ilustração de uma farmácia colorida" />
+            </div>
+        </section>
+
+        <section class="secao" id="produtos">
+            <div class="secao-cabecalho">
+                <div>
+                    <h2>Nossos produtos</h2>
+                    <p>Escolha uma categoria ou use a busca para encontrar o que precisa.</p>
+                </div>
+                <span class="resultado" id="resultado"></span>
+            </div>
+
+            <div class="filtros" aria-label="Filtrar por categoria" id="filtros"></div>
+
+            <div class="grade-produtos" id="grade-produtos"></div>
+
+            <div class="estado-vazio" id="estado-vazio" style="display:none">
+                <span class="icone" aria-hidden="true">🔎</span>
+                <h2>Nenhum produto encontrado</h2>
+                <p>Tente outra busca ou escolha uma categoria diferente.</p>
+                <a class="botao" href="index.html">Ver todos os produtos</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="rodape" id="rodape"></footer>
+
+    <script src="js/app.js"></script>
+    <script>farmaApp.iniciarIndex();</script>
+
+</body>
+</html>

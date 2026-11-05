@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrar - Farma&Cia</title>
+    <link rel="icon" type="image/png" href="images/logo-farma.png" />
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho" id="cabecalho"></header>
+
+    <main id="conteudo" class="conteudo">
+
+        <div class="pagina-estreita">
+            <section class="cartao formulario-cartao">
+                <span class="etiqueta">Sua conta</span>
+                <h1>Entrar na Farma&amp;Cia</h1>
+                <p>Informe seu e-mail e sua senha para continuar comprando.</p>
+
+                <form id="form-entrar" novalidate>
+                    <p class="validacao" id="validacao-entrar" role="alert"></p>
+
+                    <div class="campo">
+                        <label for="email">E-mail</label>
+                        <input id="email" name="email" type="email" autocomplete="username" autofocus required />
+                    </div>
+
+                    <div class="campo">
+                        <label for="senha">Senha</label>
+                        <input id="senha" name="senha" type="password" autocomplete="current-password" required />
+                    </div>
+
+                    <button type="submit" class="botao botao-bloco">Entrar</button>
+                </form>
+
+                <p class="texto-auxiliar">
+                    Não tem conta? <a href="cadastro.html">Criar conta de cliente</a>
+                </p>
+            </section>
+
+            <aside class="cartao aviso-admin">
+                <h2>Conta de demonstração</h2>
+                <p><strong>E-mail:</strong> admin@farmaecia.local</p>
+                <p><strong>Senha:</strong> Admin@12345</p>
+                <p>Versão demonstrativa: os dados ficam salvos apenas no seu navegador.</p>
+            </aside>
+        </div>
+
+    </main>
+
+    <footer class="rodape" id="rodape"></footer>
+
+    <script src="js/app.js"></script>
+    <script>farmaApp.iniciarEntrar();</script>
+
+</body>
+</html>
