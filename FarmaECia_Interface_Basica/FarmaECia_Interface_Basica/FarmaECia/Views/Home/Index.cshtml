@@ -1,0 +1,108 @@
+@model HomeViewModel
+
+@{
+    ViewData["Title"] = "Loja";
+}
+
+<section class="hero">
+
+    <div class="hero-texto">
+
+        <span class="hero-etiqueta">Um carinho a mais para você</span>
+
+        <h1>Bem-vindo à Farma &amp; Cia!</h1>
+
+        <p>
+            Encontre medicamentos, produtos de higiene, beleza e bem-estar
+            com entrega rápida e o atendimento de confiança que você merece.
+        </p>
+
+        <div class="hero-acoes">
+            <a class="botao"
+               asp-controller="Home"
+               asp-action="Ofertas">
+                Descubra as ofertas
+            </a>
+
+            <a class="botao botao-secundario" href="#produtos">
+                Ver produtos
+            </a>
+        </div>
+
+        <ul class="hero-vantagens">
+            <li>Produtos de qualidade</li>
+            <li>Compra simples e segura</li>
+            <li>Atendimento próximo</li>
+        </ul>
+
+    </div>
+
+    <div class="hero-imagem">
+        <img src="~/images/logo-farma.png"
+             alt="Ilustração de uma farmácia colorida" />
+    </div>
+
+</section>
+
+<section class="secao" id="produtos">
+
+    <div class="secao-cabecalho">
+        <div>
+            <h2>Nossos produtos</h2>
+            <p>Escolha uma categoria ou use a busca para encontrar o que precisa.</p>
+        </div>
+
+        <span class="resultado">
+            @Model.Produtos.Count @(Model.Produtos.Count == 1 ? "produto encontrado" : "produtos encontrados")
+        </span>
+    </div>
+
+    <div class="filtros" aria-label="Filtrar por categoria">
+
+        <a class="filtro-pill @(string.IsNullOrWhiteSpace(Model.CategoriaSelecionada) ? "ativo" : "")"
+           asp-controller="Home"
+           asp-action="Index"
+           asp-route-q="@Model.Busca">
+            Todas
+        </a>
+
+        @foreach (var categoria in Model.Categorias)
+        {
+            <a class="filtro-pill @(Model.CategoriaSelecionada == categoria ? "ativo" : "")"
+               asp-controller="Home"
+               asp-action="Index"
+               asp-route-categoria="@categoria"
+               asp-route-q="@Model.Busca">
+                @categoria
+            </a>
+        }
+
+    </div>
+
+    @if (Model.Produtos.Count == 0)
+    {
+        <div class="estado-vazio">
+            <span class="icone" aria-hidden="true">🔎</span>
+            <h2>Nenhum produto encontrado</h2>
+            <p>Tente outra busca ou escolha uma categoria diferente.</p>
+
+            <a class="botao"
+               asp-controller="Home"
+               asp-action="Index">
+                Ver todos os produtos
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="grade-produtos">
+
+            @foreach (var produto in Model.Produtos)
+            {
+                <partial name="_ProdutoCard" model="produto" />
+            }
+
+        </div>
+    }
+
+</section>

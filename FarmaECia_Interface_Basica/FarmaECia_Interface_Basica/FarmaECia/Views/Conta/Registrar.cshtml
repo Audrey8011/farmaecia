@@ -1,0 +1,60 @@
+@model RegistrarViewModel
+
+@{
+    ViewData["Title"] = "Criar conta";
+}
+
+<div class="pagina-estreita">
+
+    <section class="cartao formulario-cartao">
+
+        <span class="etiqueta">Cadastro</span>
+
+        <h1>Criar conta de cliente</h1>
+
+        <p>Preencha os campos abaixo para começar a comprar na Farma&amp;Cia.</p>
+
+        <form asp-controller="Conta"
+              asp-action="Registrar"
+              method="post">
+
+            <div asp-validation-summary="ModelOnly" class="validacao"></div>
+
+            <div class="campo">
+                <label asp-for="Nome"></label>
+                <input asp-for="Nome" autocomplete="name" autofocus />
+                <span asp-validation-for="Nome"></span>
+            </div>
+
+            <div class="campo">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" autocomplete="email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="campo">
+                <label asp-for="Senha"></label>
+                <input asp-for="Senha" autocomplete="new-password" />
+                <span asp-validation-for="Senha"></span>
+            </div>
+
+            <div class="campo">
+                <label asp-for="ConfirmarSenha"></label>
+                <input asp-for="ConfirmarSenha" autocomplete="new-password" />
+                <span asp-validation-for="ConfirmarSenha"></span>
+            </div>
+
+            <button type="submit" class="botao botao-bloco">
+                Criar conta
+            </button>
+
+        </form>
+
+        <p class="texto-auxiliar">
+            Já tem conta?
+            <a asp-controller="Conta" asp-action="Entrar">Entrar</a>
+        </p>
+
+    </section>
+
+</div>

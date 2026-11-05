@@ -1,0 +1,84 @@
+@model Pedido
+
+@{
+    ViewData["Title"] = $"Editar pedido #{Model.Id}";
+    var statusDisponiveis = new[] { "Recebido", "Em preparação", "Enviado", "Concluído", "Cancelado" };
+}
+
+<h1 class="titulo-pagina">Editar pedido #@Model.Id</h1>
+
+<p>Cliente: <strong>@Model.Usuario.Nome</strong> — @Model.Usuario.Email</p>
+<p>Data: @Model.DataPedido.ToString("dd/MM/yyyy HH:mm")</p>
+
+<p>
+    <a class="link-voltar" asp-controller="Admin" asp-action="Pedidos">
+        ← Voltar aos pedidos
+    </a>
+</p>
+
+@if (Model.Status == "Cancelado")
+{
+    <div class="cartao">
+        <p>Este pedido foi cancelado e não pode ser editado nem reaberto.</p>
+    </div>
+}
+else
+{
+    <div class="cartao">
+
+        <p>Altere a quantidade dos itens. A quantidade zero remove o item. O sistema ajusta o estoque e recalcula o total.</p>
+
+        <form asp-controller="Admin" asp-action="SalvarEdicaoPedido" method="post">
+
+            <input type="hidden" name="id" value="@Model.Id" />
+
+            <div class="campo">
+                <label for="status">Status do pedido</label>
+                <select id="status" name="status">
+                    @foreach (var status in statusDisponiveis)
+                    {
+                        <option value="@status" selected="@(Model.Status == status)">@status</option>
+                    }
+                </select>
+            </div>
+
+            <div class="tabela-responsiva">
+                <table class="tabela">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Preço unitário</th>
+                            <th>Estoque atual</th>
+                            <th>Quantidade no pedido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Itens)
+                        {
+                            <tr>
+                                <td>@item.NomeProduto (ID @item.ProdutoId)</td>
+                                <td>R$ @item.PrecoUnitario.ToString("N2")</td>
+                                <td>@item.Produto.Estoque</td>
+                                <td>
+                                    <input type="number"
+                                           min="0"
+                                           max="100000"
+                                           name="quantidades[@item.Id]"
+                                           value="@item.Quantidade" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <p><strong>Total atual: R$ @Model.Total.ToString("N2")</strong></p>
+
+            <button type="submit" class="botao">
+                Salvar alterações
+            </button>
+
+        </form>
+
+    </div>
+}

@@ -1,0 +1,17 @@
+# Compilação
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Segredos locais / chaves
+
+*.pem
+
+# Sistema
+Thumbs.db
+.DS_Store

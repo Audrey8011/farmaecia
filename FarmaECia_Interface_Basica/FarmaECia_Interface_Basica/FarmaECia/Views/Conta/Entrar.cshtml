@@ -1,0 +1,59 @@
+@model EntrarViewModel
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<div class="pagina-estreita">
+
+    <section class="cartao formulario-cartao">
+
+        <span class="etiqueta">Sua conta</span>
+
+        <h1>Entrar na Farma&amp;Cia</h1>
+
+        <p>Informe seu e-mail e sua senha para continuar comprando.</p>
+
+        <form asp-controller="Conta"
+              asp-action="Entrar"
+              method="post">
+
+            <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+            <div asp-validation-summary="ModelOnly" class="validacao"></div>
+
+            <div class="campo">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" autocomplete="username" autofocus />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="campo">
+                <label asp-for="Senha"></label>
+                <input asp-for="Senha" autocomplete="current-password" />
+                <span asp-validation-for="Senha"></span>
+            </div>
+
+            <button type="submit" class="botao botao-bloco">
+                Entrar
+            </button>
+
+        </form>
+
+        <p class="texto-auxiliar">
+            Não tem conta?
+            <a asp-controller="Conta" asp-action="Registrar">Criar conta de cliente</a>
+        </p>
+
+    </section>
+
+    <aside class="cartao aviso-admin">
+
+        <h2>Administrador inicial para teste local</h2>
+        <p><strong>E-mail:</strong> admin@farmaecia.local</p>
+        <p><strong>Senha:</strong> Admin@12345</p>
+        <p>Troque essa senha antes de qualquer uso além de testes locais.</p>
+
+    </aside>
+
+</div>

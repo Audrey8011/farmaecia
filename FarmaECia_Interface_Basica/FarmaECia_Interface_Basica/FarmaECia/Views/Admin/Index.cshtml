@@ -1,0 +1,76 @@
+@model AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Painel administrativo";
+}
+
+<section class="pagina-cabecalho">
+
+    <span class="etiqueta">Área restrita</span>
+
+    <h1>Painel administrativo</h1>
+
+    <p>Resumo da operação da Farma&amp;Cia. Esta área é exclusiva para administradores.</p>
+
+</section>
+
+<div class="estatisticas">
+
+    <article class="estatistica">
+        <span>Produtos ativos</span>
+        <strong>@Model.ProdutosAtivos</strong>
+    </article>
+
+    <article class="estatistica">
+        <span>Unidades em estoque</span>
+        <strong>@Model.UnidadesEmEstoque</strong>
+    </article>
+
+    <article class="estatistica">
+        <span>Pedidos em aberto</span>
+        <strong>@Model.PedidosAbertos</strong>
+    </article>
+
+    <article class="estatistica">
+        <span>Total das vendas</span>
+        <strong>R$ @Model.TotalVendas.ToString("N2")</strong>
+    </article>
+
+    <article class="estatistica">
+        <span>Clientes cadastrados</span>
+        <strong>@Model.ClientesCadastrados</strong>
+    </article>
+
+</div>
+
+<nav class="atalhos-admin" aria-label="Atalhos administrativos">
+
+    <a class="atalho"
+       asp-controller="Admin"
+       asp-action="Produtos">
+        Gerenciar produtos
+        <span>Cadastre, edite e controle o estoque.</span>
+    </a>
+
+    <a class="atalho"
+       asp-controller="Admin"
+       asp-action="Pedidos">
+        Gerenciar pedidos
+        <span>Acompanhe e atualize o status das compras.</span>
+    </a>
+
+    <a class="atalho"
+       asp-controller="Admin"
+       asp-action="Vendas">
+        Consultar vendas
+        <span>Veja o registro e o total vendido.</span>
+    </a>
+
+    <a class="atalho"
+       asp-controller="Home"
+       asp-action="Index">
+        Abrir a loja
+        <span>Visualize a loja como um cliente.</span>
+    </a>
+
+</nav>

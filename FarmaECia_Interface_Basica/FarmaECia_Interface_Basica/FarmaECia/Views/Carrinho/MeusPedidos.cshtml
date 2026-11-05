@@ -1,0 +1,62 @@
+@model List<Pedido>
+
+@{
+    ViewData["Title"] = "Meus pedidos";
+}
+
+<h1 class="titulo-pagina">Meus pedidos</h1>
+
+<p>
+    <a class="link-voltar" asp-controller="Home" asp-action="Index">
+        ← Voltar à loja
+    </a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="estado-vazio">
+        <span class="icone" aria-hidden="true">📦</span>
+        <h2>Você ainda não possui pedidos</h2>
+        <p>Quando você finalizar uma compra, o acompanhamento aparecerá aqui.</p>
+
+        <a class="botao"
+           asp-controller="Home"
+           asp-action="Index">
+            Começar a comprar
+        </a>
+    </div>
+}
+else
+{
+    <div class="lista-pedidos">
+
+        @foreach (var pedido in Model)
+        {
+            <article class="cartao pedido-card">
+
+                <header>
+                    <h2>Pedido #@pedido.Id</h2>
+                    <span class="status">@pedido.Status</span>
+                </header>
+
+                <p>Data: @pedido.DataPedido.ToString("dd/MM/yyyy HH:mm")</p>
+
+                <ul class="pedido-itens">
+                    @foreach (var item in pedido.Itens)
+                    {
+                        <li>
+                            <span>@item.Quantidade x @item.NomeProduto</span>
+                            <strong>R$ @item.Subtotal.ToString("N2")</strong>
+                        </li>
+                    }
+                </ul>
+
+                <p class="pedido-total">
+                    Total: <strong>R$ @pedido.Total.ToString("N2")</strong>
+                </p>
+
+            </article>
+        }
+
+    </div>
+}

@@ -1,0 +1,77 @@
+@model List<Produto>
+
+@{
+    ViewData["Title"] = "Gerenciar produtos";
+}
+
+<h1 class="titulo-pagina">Gerenciar produtos e estoque</h1>
+
+<p>
+    <a class="link-voltar" asp-controller="Admin" asp-action="Index">
+        ← Voltar ao painel
+    </a>
+</p>
+
+<p>
+    <a class="botao"
+       asp-controller="Admin"
+       asp-action="CriarProduto">
+        Cadastrar produto
+    </a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="estado-vazio">
+        <span class="icone" aria-hidden="true">📦</span>
+        <h2>Nenhum produto cadastrado</h2>
+        <p>Cadastre o primeiro produto para começar a vender.</p>
+    </div>
+}
+else
+{
+    <div class="tabela-responsiva">
+
+        <table class="tabela tabela-produtos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Ativo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var produto in Model)
+                {
+                    <tr>
+                        <td>@produto.Id</td>
+                        <td><strong>@produto.Nome</strong></td>
+                        <td>@produto.Categoria</td>
+                        <td>R$ @produto.Preco.ToString("N2")</td>
+                        <td>@produto.Estoque</td>
+                        <td>@(produto.Ativo ? "Sim" : "Não")</td>
+                        <td>
+                            <a asp-controller="Admin"
+                               asp-action="EditarProduto"
+                               asp-route-id="@produto.Id">
+                                Editar
+                            </a>
+
+                            <form asp-controller="Admin" asp-action="DesativarProduto" method="post">
+                                <input type="hidden" name="id" value="@produto.Id" />
+                                <button type="submit" class="botao botao-contorno botao-pequeno">
+                                    @(produto.Ativo ? "Desativar" : "Reativar")
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+}

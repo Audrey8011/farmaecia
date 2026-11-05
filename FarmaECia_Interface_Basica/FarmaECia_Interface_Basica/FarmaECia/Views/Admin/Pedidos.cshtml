@@ -1,0 +1,81 @@
+@model List<Pedido>
+
+@{
+    ViewData["Title"] = "Gerenciar pedidos";
+    var statusDisponiveis = new[] { "Recebido", "Em preparação", "Enviado", "Concluído", "Cancelado" };
+}
+
+<h1 class="titulo-pagina">Gerenciar pedidos</h1>
+
+<p>
+    <a class="link-voltar" asp-controller="Admin" asp-action="Index">
+        ← Voltar ao painel
+    </a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="estado-vazio">
+        <span class="icone" aria-hidden="true">🧾</span>
+        <h2>Nenhum pedido registrado</h2>
+        <p>Os pedidos confirmados pelos clientes aparecerão aqui.</p>
+    </div>
+}
+else
+{
+    <div class="tabela-responsiva">
+
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Cliente</th>
+                    <th>Data</th>
+                    <th>Itens</th>
+                    <th>Total</th>
+                    <th>Status e ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pedido in Model)
+                {
+                    <tr>
+                        <td><strong>#@pedido.Id</strong></td>
+                        <td>@pedido.Usuario.Nome<br /><small>@pedido.Usuario.Email</small></td>
+                        <td>@pedido.DataPedido.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@string.Join(", ", pedido.Itens.Select(i => i.Quantidade + "x " + i.NomeProduto))</td>
+                        <td>R$ @pedido.Total.ToString("N2")</td>
+                        <td>
+                            <a asp-controller="Admin"
+                               asp-action="EditarPedido"
+                               asp-route-id="@pedido.Id">
+                                Editar itens
+                            </a>
+
+                            <form asp-controller="Admin" asp-action="AtualizarStatusPedido" method="post">
+                                <input type="hidden" name="id" value="@pedido.Id" />
+
+                                <label class="visualmente-oculto" for="status-@pedido.Id">Status</label>
+                                <select id="status-@pedido.Id" name="status">
+                                    @foreach (var status in statusDisponiveis)
+                                    {
+                                        <option value="@status" selected="@(pedido.Status == status)">@status</option>
+                                    }
+                                </select>
+
+                                <button type="submit" class="botao botao-pequeno">
+                                    Atualizar status
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+    <p class="texto-auxiliar">
+        Ao cancelar um pedido, o estoque retorna e a venda relacionada é marcada como cancelada.
+    </p>
+}

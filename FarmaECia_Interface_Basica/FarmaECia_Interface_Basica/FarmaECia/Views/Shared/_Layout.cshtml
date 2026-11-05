@@ -1,0 +1,214 @@
+@{
+    var buscaGlobal = Context.Request.Query["q"].ToString();
+    var controllerAtual = ViewContext.RouteData.Values["controller"]?.ToString();
+    var actionAtual = ViewContext.RouteData.Values["action"]?.ToString();
+    var carrinhoIds = Context.Session.GetString("CarrinhoIds");
+    var quantidadeCarrinho = string.IsNullOrWhiteSpace(carrinhoIds)
+        ? 0
+        : carrinhoIds.Split(',', StringSplitOptions.RemoveEmptyEntries).Length;
+
+    string ClasseAtivo(string controller, string action)
+        => controllerAtual == controller && actionAtual == action ? " ativo" : string.Empty;
+}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Farma&Cia — sua farmácia de confiança. Medicamentos, higiene, beleza e bem-estar com entrega rápida." />
+    <title>@ViewData["Title"] - Farma&Cia</title>
+
+    <link rel="icon" type="image/png" href="~/images/logo-farma.png" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+
+    <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="cabecalho">
+
+        <div class="faixa-topo">
+            <div class="navegacao faixa-topo-conteudo">
+                <span>Entrega rápida e atendimento de confiança</span>
+                <span>Parcele suas compras em até 3x</span>
+            </div>
+        </div>
+
+        <nav class="navegacao navegacao-principal" aria-label="Navegação principal">
+
+            <a class="marca"
+               asp-controller="Home"
+               asp-action="Index"
+               aria-label="Farma&Cia - Página inicial">
+
+                <img src="~/images/logo-farma.png"
+                     alt=""
+                     class="logo-farma" />
+
+                <span>Farma<strong>&amp;Cia</strong></span>
+            </a>
+
+            <form class="form-pesquisa"
+                  asp-controller="Home"
+                  asp-action="Index"
+                  method="get"
+                  role="search">
+
+                <label class="visualmente-oculto" for="busca">Buscar produtos</label>
+
+                <input id="busca"
+                       type="search"
+                       name="q"
+                       class="barra-pesquisa"
+                       placeholder="O que você procura?"
+                       value="@buscaGlobal" />
+
+                <button type="submit" class="botao botao-pequeno">
+                    Buscar
+                </button>
+
+            </form>
+
+            <ul class="menu-acoes">
+
+                <li>
+                    <a class="menu-link@(ClasseAtivo("Home", "Index"))"
+                       asp-controller="Home"
+                       asp-action="Index">
+                        Início
+                    </a>
+                </li>
+
+                <li>
+                    <a class="menu-link@(ClasseAtivo("Home", "Ofertas"))"
+                       asp-controller="Home"
+                       asp-action="Ofertas">
+                        Ofertas
+                    </a>
+                </li>
+
+                <li>
+                    <a class="menu-link link-carrinho@(ClasseAtivo("Carrinho", "Index"))"
+                       asp-controller="Carrinho"
+                       asp-action="Index">
+
+                        Minha cesta
+
+                        @if (quantidadeCarrinho > 0)
+                        {
+                            <span class="badge-carrinho">@quantidadeCarrinho</span>
+                        }
+                    </a>
+                </li>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <li>
+                        <a class="menu-link@(ClasseAtivo("Carrinho", "MeusPedidos"))"
+                           asp-controller="Carrinho"
+                           asp-action="MeusPedidos">
+                            Meus pedidos
+                        </a>
+                    </li>
+
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <li>
+                            <a class="menu-link@(ClasseAtivo("Admin", "Index"))"
+                               asp-controller="Admin"
+                               asp-action="Index">
+                                Administração
+                            </a>
+                        </li>
+                    }
+
+                    <li class="menu-usuario">
+                        Olá, <strong>@User.Identity.Name</strong>
+                    </li>
+
+                    <li>
+                        <form asp-controller="Conta"
+                              asp-action="Sair"
+                              method="post">
+                            <button type="submit" class="botao botao-contorno botao-pequeno">
+                                Sair
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="menu-link@(ClasseAtivo("Conta", "Entrar"))"
+                           asp-controller="Conta"
+                           asp-action="Entrar">
+                            Entrar
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="botao botao-pequeno"
+                           asp-controller="Conta"
+                           asp-action="Registrar">
+                            Cadastre-se
+                        </a>
+                    </li>
+                }
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+    @if (TempData["Mensagem"] is string mensagem)
+    {
+        <div class="navegacao">
+            <div class="mensagem" role="status">
+                @mensagem
+            </div>
+        </div>
+    }
+
+    <main id="conteudo" class="conteudo">
+        @RenderBody()
+    </main>
+
+    <footer class="rodape">
+
+        <div class="rodape-conteudo">
+
+            <div class="rodape-marca">
+                <img src="~/images/logo-farma.png" alt="" />
+
+                <div>
+                    <strong>Farma&amp;Cia</strong>
+                    <p>Um carinho a mais para você.</p>
+                </div>
+            </div>
+
+            <div>
+                <h3>Atendimento</h3>
+                <p>Segunda a sábado, das 8h às 20h</p>
+                <p>contato@farmaecia.local</p>
+            </div>
+
+            <div>
+                <h3>Sobre o projeto</h3>
+                <p>Projeto fictício desenvolvido para fins acadêmicos.</p>
+                <p>Produtos e preços são apenas demonstrativos.</p>
+            </div>
+
+        </div>
+
+        <div class="rodape-base">
+            <p>© @DateTime.Now.Year Farma&amp;Cia — Todos os direitos reservados.</p>
+        </div>
+
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

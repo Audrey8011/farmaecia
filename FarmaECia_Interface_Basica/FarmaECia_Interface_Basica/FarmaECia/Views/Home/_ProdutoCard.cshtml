@@ -1,0 +1,89 @@
+@model Produto
+
+@{
+    var percentualDesconto = Model.PrecoAnterior.HasValue && Model.PrecoAnterior.Value > Model.Preco
+        ? (int)Math.Round((1 - (double)(Model.Preco / Model.PrecoAnterior.Value)) * 100)
+        : 0;
+
+    var icone = Model.Categoria switch
+    {
+        "Cuidados com a pele" => "🧴",
+        "Cabelos" => "✂️",
+        "Higiene" => "🧼",
+        "Bem-estar" => "💊",
+        _ => "✚"
+    };
+
+    var returnUrl = Context.Request.Path + Context.Request.QueryString;
+}
+
+<article class="produto-card">
+
+    <div class="produto-topo">
+
+        <span class="produto-ilustracao" aria-hidden="true">@icone</span>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Selo))
+        {
+            <span class="produto-selo">@Model.Selo</span>
+        }
+
+    </div>
+
+    <p class="produto-categoria">@Model.Categoria</p>
+
+    <h3>@Model.Nome</h3>
+
+    <p class="produto-descricao">@Model.Descricao</p>
+
+    <div class="produto-precos">
+
+        @if (percentualDesconto > 0)
+        {
+            <span class="preco-anterior">
+                R$ @Model.PrecoAnterior!.Value.ToString("N2")
+            </span>
+        }
+
+        <span class="produto-preco">
+            R$ @Model.Preco.ToString("N2")
+        </span>
+
+        @if (percentualDesconto > 0)
+        {
+            <span class="produto-desconto">-@percentualDesconto%</span>
+        }
+
+    </div>
+
+    @if (Model.Estoque > 0)
+    {
+        <p class="produto-estoque disponivel">
+            Disponível: @Model.Estoque un.
+        </p>
+
+        <form asp-controller="Carrinho"
+              asp-action="Adicionar"
+              method="post">
+
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="hidden" name="returnUrl" value="@returnUrl" />
+
+            <button type="submit" class="botao botao-bloco">
+                Adicionar à cesta
+            </button>
+
+        </form>
+    }
+    else
+    {
+        <p class="produto-estoque esgotado">
+            Produto sem estoque
+        </p>
+
+        <button type="button" class="botao botao-bloco" disabled>
+            Indisponível
+        </button>
+    }
+
+</article>

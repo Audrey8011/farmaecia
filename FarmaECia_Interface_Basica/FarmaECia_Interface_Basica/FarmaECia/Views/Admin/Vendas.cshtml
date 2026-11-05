@@ -1,0 +1,61 @@
+@model List<Venda>
+
+@{
+    ViewData["Title"] = "Registro de vendas";
+}
+
+<h1 class="titulo-pagina">Registro de vendas</h1>
+
+<p>
+    Valor total de vendas não canceladas:
+    <strong>R$ @(((decimal)ViewBag.TotalAtivo).ToString("N2"))</strong>
+</p>
+
+<p>
+    <a class="link-voltar" asp-controller="Admin" asp-action="Index">
+        ← Voltar ao painel
+    </a>
+</p>
+
+@if (!Model.Any())
+{
+    <div class="estado-vazio">
+        <span class="icone" aria-hidden="true">💰</span>
+        <h2>Nenhuma venda registrada</h2>
+        <p>As vendas confirmadas aparecerão aqui.</p>
+    </div>
+}
+else
+{
+    <div class="tabela-responsiva">
+
+        <table class="tabela">
+            <thead>
+                <tr>
+                    <th>Venda</th>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                    <th>Cliente</th>
+                    <th>Itens</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var venda in Model)
+                {
+                    <tr>
+                        <td><strong>#@venda.Id</strong></td>
+                        <td>#@venda.PedidoId</td>
+                        <td>@venda.DataVenda.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@venda.Usuario.Nome</td>
+                        <td>@string.Join(", ", venda.Itens.Select(i => i.Quantidade + "x " + i.NomeProduto))</td>
+                        <td>R$ @venda.Total.ToString("N2")</td>
+                        <td>@venda.Status</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+}

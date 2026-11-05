@@ -1,0 +1,214 @@
+body {
+ color:black;
+ background-color: white;
+ font-family: Arial, Helvetica, sans-serif;
+}
+
+ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 10px 20px;
+    margin: 0;
+}
+nav img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    position: relative;
+    top: 5px;
+    left:-2px;
+    
+}
+
+nav ul li:first-child {
+    transform: translateY(-5px);
+}
+
+.barra-pesquisa {
+    width: 250px;
+    padding: 8px;
+    border-radius: 20px;
+    border: 1px solid gray;
+}
+
+ul {
+    background-color: white;
+    box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+/* ==== Extensão do protótipo ==== */
+
+:root {
+    --vermelho: #c51f36;
+    --vermelho-escuro: #99182b;
+    --rosa: #fff0f2;
+}
+
+nav ul li.links {
+    display: flex;
+    gap: 16px;
+}
+
+nav a {
+    color: inherit;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--vermelho);
+}
+
+.hero {
+    margin: 24px 20px;
+    padding: 32px 28px;
+    border: 1px solid #ffd9df;
+    border-radius: 18px;
+    background: var(--rosa);
+    text-align: center;
+}
+
+.hero .etiqueta {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ffd9df;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--vermelho);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    margin: 16px 0 8px;
+    color: var(--vermelho);
+    font-size: 32px;
+}
+
+.botao {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--vermelho);
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.botao:hover {
+    background: var(--vermelho-escuro);
+}
+
+.grade-ofertas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin: 24px 20px 40px;
+}
+
+.produto {
+    padding: 18px;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.produto h3 {
+    margin: 6px 0;
+    color: var(--vermelho);
+}
+
+.produto .categoria {
+    margin: 0 0 8px;
+    color: #777;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.produto .preco {
+    margin: 0 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.produto .preco s,
+.produto .preco strong {
+    white-space: nowrap;
+}
+
+.produto .preco strong {
+    font-size: 22px;
+}
+
+.produto .preco s {
+    color: #999;
+}
+
+.produto .desconto {
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #e8f7f0;
+    color: #0b6b4a;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.produto .selo {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #fff3cd;
+    color: #8a6100;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Formulário de cadastro */
+
+.form-cadastro {
+    max-width: 420px;
+    margin: 30px auto 50px;
+    padding: 26px;
+    border: 1px solid #eeeaee;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.form-cadastro h1 {
+    margin-top: 0;
+    color: var(--vermelho);
+    font-size: 24px;
+}
+
+.campo {
+    margin-bottom: 14px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.campo input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.campo input:focus {
+    border-color: var(--vermelho);
+    outline: none;
+}

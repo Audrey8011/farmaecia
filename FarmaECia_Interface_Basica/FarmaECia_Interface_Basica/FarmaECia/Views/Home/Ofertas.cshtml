@@ -1,0 +1,44 @@
+@model List<Produto>
+
+@{
+    ViewData["Title"] = "Ofertas";
+}
+
+<section class="pagina-cabecalho">
+
+    <span class="etiqueta">Economize mais</span>
+
+    <h1>Ofertas da semana</h1>
+
+    <p>
+        Aproveite os produtos selecionados com preços especiais.
+        As quantidades são limitadas ao estoque disponível.
+    </p>
+
+</section>
+
+@if (!Model.Any())
+{
+    <div class="estado-vazio">
+        <span class="icone" aria-hidden="true">🏷️</span>
+        <h2>Nenhuma oferta no momento</h2>
+        <p>Novas promoções aparecem por aqui. Enquanto isso, confira o catálogo completo.</p>
+
+        <a class="botao"
+           asp-controller="Home"
+           asp-action="Index">
+            Ver todos os produtos
+        </a>
+    </div>
+}
+else
+{
+    <div class="grade-produtos">
+
+        @foreach (var produto in Model)
+        {
+            <partial name="_ProdutoCard" model="produto" />
+        }
+
+    </div>
+}
