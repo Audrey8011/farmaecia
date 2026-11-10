@@ -12,14 +12,15 @@
     };
 
     var PRODUTOS = [
-        { id: 1, nome: "Protetor Solar FPS 50", descricao: "Toque seco para o cuidado diário", categoria: "Cuidados com a pele", selo: "MAIS VENDIDO", preco: 49.90, precoAnterior: 64.90, estoque: 35 },
-        { id: 2, nome: "Hidratante Facial", descricao: "Hidratação leve para todos os dias", categoria: "Cuidados com a pele", selo: "OFERTA", preco: 36.90, precoAnterior: 44.90, estoque: 24 },
-        { id: 3, nome: "Shampoo Nutritivo", descricao: "Limpeza suave para os seus cabelos", categoria: "Cabelos", selo: "-15%", preco: 25.90, precoAnterior: 30.50, estoque: 40 },
-        { id: 4, nome: "Sabonete Líquido", descricao: "Sensação de frescor no banho", categoria: "Higiene", selo: "", preco: 18.90, precoAnterior: null, estoque: 55 },
-        { id: 5, nome: "Creme para as Mãos", descricao: "Textura leve e rápida absorção", categoria: "Cuidados com a pele", selo: "OFERTA", preco: 16.90, precoAnterior: 21.90, estoque: 30 },
-        { id: 6, nome: "Condicionador Suave", descricao: "Cuidado diário para os fios", categoria: "Cabelos", selo: "NOVIDADE", preco: 27.90, precoAnterior: null, estoque: 22 },
-        { id: 7, nome: "Kit de Higiene Bucal", descricao: "Uma rotina prática para o seu sorriso", categoria: "Higiene", selo: "KIT ESPECIAL", preco: 22.90, precoAnterior: null, estoque: 18 },
-        { id: 8, nome: "Álcool em Gel 70%", descricao: "Frasco compacto para levar com você", categoria: "Bem-estar", selo: "PRÁTICO", preco: 9.90, precoAnterior: null, estoque: 60 }
+        { id: 1, nome: "Protetor Solar FPS 50", descricao: "Toque seco para o cuidado diário", categoria: "Cuidados com a pele", selo: "MAIS VENDIDO", preco: 49.90, precoAnterior: 64.90, estoque: 35, imagem: "images/produtos/protetor-solar-fps50.jpeg" },
+        { id: 2, nome: "Loção deo-hidratante", descricao: "Hidratação leve para todos os dias", categoria: "Cuidados com a pele", selo: "OFERTA", preco: 36.90, precoAnterior: 44.90, estoque: 24, imagem: "images/produtos/locao-deo-hidratante.jpeg" },
+        { id: 3, nome: "Shampoo Nutritivo", descricao: "Limpeza suave para os seus cabelos", categoria: "Cabelos", selo: "-15%", preco: 25.90, precoAnterior: 30.50, estoque: 40, imagem: "images/produtos/shampoo-nutritivo.jpeg" },
+        { id: 4, nome: "Sabonete Líquido", descricao: "Sensação de frescor no banho", categoria: "Higiene", selo: "", preco: 18.90, precoAnterior: null, estoque: 55, imagem: "images/produtos/sabonete-liquido.jpeg" },
+        { id: 5, nome: "Creme para as Mãos", descricao: "Textura leve e rápida absorção", categoria: "Cuidados com a pele", selo: "OFERTA", preco: 16.90, precoAnterior: 21.90, estoque: 30, imagem: "images/produtos/creme-para-maos.jpeg" },
+        { id: 6, nome: "Condicionador Suave", descricao: "Cuidado diário para os fios", categoria: "Cabelos", selo: "NOVIDADE", preco: 27.90, precoAnterior: null, estoque: 21, imagem: "images/produtos/condicionador-suave.jpeg" },
+        { id: 7, nome: "Kit de Higiene Bucal", descricao: "Uma rotina prática para o seu sorriso", categoria: "Higiene", selo: "KIT ESPECIAL", preco: 22.90, precoAnterior: null, estoque: 18, imagem: "images/produtos/kit-higiene-bucal.jpeg" },
+        { id: 8, nome: "Álcool em Gel 70%", descricao: "Frasco compacto para levar com você", categoria: "Bem-estar", selo: "PRÁTICO", preco: 9.90, precoAnterior: null, estoque: 55, imagem: "images/produtos/alcool-em-gel-70.jpeg" },
+        { id: 9, nome: "Gelatina Salon Line #todecacho", descricao: "Gelatina definidora de cachos Salon Line 550 g", categoria: "Cabelos", selo: "NOVIDADE", preco: 39.90, precoAnterior: null, estoque: 25, imagem: "images/produtos/gelatina-salon-line.jpeg" }
     ];
 
     /* ============ utilidades ============ */
@@ -151,9 +152,13 @@
             ? Math.round((1 - p.preco / p.precoAnterior) * 100)
             : 0;
 
+        var topo = p.imagem
+            ? '<img class="produto-foto" src="' + escaping(p.imagem) + '" alt="' + escaping(p.nome) + '" loading="lazy" />'
+            : '<span class="produto-ilustracao" aria-hidden="true">' + icone(p.categoria) + '</span>';
+
         var html = '<article class="produto-card">'
-            + '<div class="produto-topo">'
-            + '<span class="produto-ilustracao" aria-hidden="true">' + icone(p.categoria) + '</span>'
+            + '<div class="produto-topo' + (p.imagem ? ' produto-com-imagem' : '') + '">'
+            + topo
             + (p.selo ? '<span class="produto-selo">' + escaping(p.selo) + '</span>' : '')
             + '</div>'
             + '<p class="produto-categoria">' + escaping(p.categoria) + '</p>'
