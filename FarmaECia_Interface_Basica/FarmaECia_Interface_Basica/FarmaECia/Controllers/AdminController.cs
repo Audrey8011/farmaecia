@@ -11,7 +11,12 @@ namespace FarmaECia.Controllers;
 public class AdminController : Controller
 {
     private readonly FarmaDbContext _banco;
-    public AdminController(FarmaDbContext banco) => _banco = banco;
+    private readonly ILogger<AdminController> _logger;
+    public AdminController(FarmaDbContext banco, ILogger<AdminController> logger)
+    {
+        _banco = banco;
+        _logger = logger;
+    }
 
     public async Task<IActionResult> Index()
     {
@@ -40,7 +45,17 @@ public class AdminController : Controller
     {
         if (!ModelState.IsValid) return View("ProdutoForm", produto);
         _banco.Produtos.Add(produto);
-        await _banco.SaveChangesAsync();
+        try
+        {
+            await _banco.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "Falha ao cadastrar o produto {Nome}.", produto.Nome);
+            ModelState.AddModelError(string.Empty,
+                "Não foi possível salvar o produto. Verifique a conexão com o banco de dados e tente novamente.");
+            return View("ProdutoForm", produto);
+        }
         TempData["Mensagem"] = "Produto cadastrado.";
         return RedirectToAction(nameof(Produtos));
     }
@@ -62,7 +77,17 @@ public class AdminController : Controller
         produto.Nome = form.Nome; produto.Descricao = form.Descricao; produto.Categoria = form.Categoria;
         produto.Ilustracao = form.Ilustracao; produto.Selo = form.Selo; produto.Preco = form.Preco;
         produto.PrecoAnterior = form.PrecoAnterior; produto.Estoque = form.Estoque; produto.Ativo = form.Ativo;
-        await _banco.SaveChangesAsync();
+        try
+        {
+            await _banco.SaveChangesAsync();
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "Falha ao atualizar o produto {Id}.", id);
+            ModelState.AddModelError(string.Empty,
+                "Não foi possível atualizar o produto. Verifique a conexão com o banco de dados e tente novamente.");
+            return View("ProdutoForm", form);
+        }
         TempData["Mensagem"] = "Produto atualizado.";
         return RedirectToAction(nameof(Produtos));
     }

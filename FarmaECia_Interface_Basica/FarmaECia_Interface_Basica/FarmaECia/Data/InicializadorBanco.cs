@@ -34,6 +34,7 @@ public static class InicializadorBanco
                 new Produto { Nome = "Sabonete Líquido", Descricao = "Sensação de frescor no banho", Categoria = "Higiene", Ilustracao = "❋", Preco = 18.90m, Estoque = 55 },
                 new Produto { Nome = "Creme para as Mãos", Descricao = "Textura leve e rápida absorção", Categoria = "Cuidados com a pele", Ilustracao = "♡", Selo = "OFERTA", Preco = 16.90m, PrecoAnterior = 21.90m, Estoque = 30 },
                 new Produto { Nome = "Condicionador Suave", Descricao = "Cuidado diário para os fios", Categoria = "Cabelos", Ilustracao = "〰", Selo = "NOVIDADE", Preco = 27.90m, Estoque = 22 },
+                new Produto { Nome = "Gelatina Salon Line #todecacho", Descricao = "Gelatina definidora de cachos Salon Line 550 g", Categoria = "Cabelos", Ilustracao = "🧴", Selo = "NOVIDADE", Preco = 39.90m, Estoque = 25 },
                 new Produto { Nome = "Kit de Higiene Bucal", Descricao = "Uma rotina prática para o seu sorriso", Categoria = "Higiene", Ilustracao = "✦", Selo = "KIT ESPECIAL", Preco = 22.90m, Estoque = 18 },
                 new Produto { Nome = "Álcool em Gel 70%", Descricao = "Frasco compacto para levar com você", Categoria = "Bem-estar", Ilustracao = "❖", Selo = "PRÁTICO", Preco = 9.90m, Estoque = 60 }
             );

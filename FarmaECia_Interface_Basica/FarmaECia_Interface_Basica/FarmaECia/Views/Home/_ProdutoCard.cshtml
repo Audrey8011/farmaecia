@@ -14,14 +14,45 @@
         _ => "✚"
     };
 
+    var nomeNormalizado = Model.Nome.Trim().ToLowerInvariant();
+    var imagemProduto = nomeNormalizado.Contains("álcool") || nomeNormalizado.Contains("alcool")
+        ? "alcool-em-gel-70.jpeg"
+        : nomeNormalizado.Contains("condicionador")
+            ? "condicionador-suave.jpeg"
+            : nomeNormalizado.Contains("creme para as mãos") || nomeNormalizado.Contains("creme para as maos")
+                ? "creme-para-maos.jpeg"
+                : nomeNormalizado.Contains("gelatina")
+                    ? "gelatina-salon-line.jpeg"
+                    : nomeNormalizado.Contains("kit de higiene bucal")
+                        ? "kit-higiene-bucal.jpeg"
+                        : nomeNormalizado.Contains("protetor solar")
+                            ? "protetor-solar-fps50.jpeg"
+                            : nomeNormalizado.Contains("sabonete")
+                                ? "sabonete-liquido.jpeg"
+                                : nomeNormalizado.Contains("shampoo")
+                                    ? "shampoo-nutritivo.jpeg"
+                                    : nomeNormalizado.Contains("hidratante")
+                                        ? "locao-deo-hidratante.jpeg"
+                                        : null;
+
     var returnUrl = Context.Request.Path + Context.Request.QueryString;
 }
 
 <article class="produto-card">
 
-    <div class="produto-topo">
+    <div class="produto-topo @(imagemProduto != null ? "produto-com-imagem" : string.Empty)">
 
-        <span class="produto-ilustracao" aria-hidden="true">@icone</span>
+        @if (imagemProduto != null)
+        {
+            <img class="produto-foto"
+                 src="~/images/produtos/@imagemProduto"
+                 alt="@Model.Nome"
+                 loading="lazy" />
+        }
+        else
+        {
+            <span class="produto-ilustracao" aria-hidden="true">@icone</span>
+        }
 
         @if (!string.IsNullOrWhiteSpace(Model.Selo))
         {
