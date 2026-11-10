@@ -11,6 +11,17 @@ Projeto ASP.NET Core MVC da Farma&Cia com a interface visual integrada, responsi
 
 O banco `FarmaECiaDb` está no Azure SQL Database na oferta gratuita. A conexão é definida em produção pela configuração `ConnectionStrings__DefaultConnection` do App Service; nenhuma credencial fica no repositório. O projeto usa .NET 10.
 
+### Atualizar a publicação no Azure
+
+```powershell
+cd FarmaECia
+dotnet publish -c Release -o ..\publish
+Compress-Archive -Path ..\publish\* -DestinationPath ..\mvc.zip -Force
+az webapp deploy -g rg-farmaecia-student -n farmaecia-mvc-audrey-2026 --src-path ..\mvc.zip --type zip
+```
+
+A API do app Flutter é publicada do projeto `Farmacia_site` com o mesmo comando, trocando o nome para `farmaecia-api-audrey-2026`. As configurações `Jwt__Key`, `Jwt__Issuer`, `Jwt__Audience` e `Cors__AllowedOrigins__0` ficam nos App Settings do App Service.
+
 ## O que já está pronto
 
 - Layout completo com logo, busca, navegação, cesta e rodapé.
