@@ -8,6 +8,7 @@ Projeto ASP.NET Core MVC da Farma&Cia com a interface visual integrada, responsi
 - API usada pelo app Flutter (Azure App Service): https://farmaecia-api-audrey-2026.azurewebsites.net/api/produtos
 - Vitrine estática (GitHub Pages): https://audrey8011.github.io/farmaecia/
 - App Flutter: https://github.com/Audrey8011/farmaecia-flutter
+- API usada pelo app (código): https://github.com/Audrey8011/farmaecia-api
 
 O banco `FarmaECiaDb` está no Azure SQL Database na oferta gratuita. A conexão é definida em produção pela configuração `ConnectionStrings__DefaultConnection` do App Service; nenhuma credencial fica no repositório. O projeto usa .NET 10.
 
